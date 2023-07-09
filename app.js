@@ -1,16 +1,21 @@
 const latitude = document.querySelector(".latitude");
 const longitude = document.querySelector(".longitude");
 const Countrty = document.querySelector(".Countrty");
+const submited = document.querySelector(".Countrty");
+console.log(latitude)
+console.log(longitude)
 Countrty.addEventListener("click", () => {
   location.reload();
+  console.log("page reload")
 });
 
 function getLocation() {
+  console
   fetch(
-    `https://geocode.xyz/${latitude},${longitude}?geoit=json`
+    `https://geocode.xyz/${latitude.value},${longitude.value}?geoit=json`
   )
     .then((response) => {
-      console.log(response);
+      console.log("response mil gaya",response);
 
       if (!response.ok)
         throw new Error(`Geocoding throw an error (${response.status})`);
@@ -40,6 +45,7 @@ function getLocation() {
       errorDetect(error);
     });
 }
+submited.addEventListener('click', getLocation)
 
 const mainCountry = document.querySelector(".mainCountry");
 const countryData = document.querySelector(".countryData");
