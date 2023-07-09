@@ -29,6 +29,7 @@
 
 }
 .countryData{
+    display: none;
     height: 600px;
     width: 400px;
     

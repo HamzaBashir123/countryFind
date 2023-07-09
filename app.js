@@ -7,7 +7,7 @@ Countrty.addEventListener("click", () => {
 
 function getLocation() {
   fetch(
-    `https://geocode.xyz/${35.920834},${74.308334}?geoit=json`
+    `https://geocode.xyz/${latitude},${longitude}?geoit=json`
   )
     .then((response) => {
       console.log(response);
@@ -36,17 +36,17 @@ function getLocation() {
       showContent(data[0]);
     })
     .catch((error) => {
+      console.log(error)
       errorDetect(error);
     });
 }
-getLocation();
 
 const mainCountry = document.querySelector(".mainCountry");
 const countryData = document.querySelector(".countryData");
 
 const errorDetect = (err) => {
-  mainCountry.style.display = "block";
-  countryData.style.display = "none";
+  mainCountry.style.display = "none";
+  countryData.style.display = "block";
   mainCountry.innerText = `Something went wrong ${err}, Try Again!`;
 };
 
@@ -57,13 +57,21 @@ const googleMap = document.querySelector(".googleMap");
 const currency = document.querySelector(".curreny");
 const region = document.querySelector(".region");
 const subRegion = document.querySelector(".subRegion");
+const countryFlag = document.querySelector(".countryFlag");
+
 
 const showContent = (cD) => {
+  console.log(cD)
+  mainCountry.style.display = "none";
+  countryData.style.display = "block";
+  const currencySub = Object.values(cD.currencies)[0]
+
+  countryFlag.src = cD.flags.png;
   population.innerHTML = cD.population;
-  language.innerHTML = cD.language.fra;
+  language.innerHTML = Object.values(cD.languages)
   capital.innerHTML = cD.capital;
-  currency.innerHTML = cD.currencies.EUR.name;
+  currency.innerHTML =Object.values(currencySub)  ;
   region.innerHTML = cD.region;
-  subRegion.innerHTML = cD.subRegion;
-  googleMap.innerHTML = cD.map.googleMap;
+  subRegion.innerHTML = cD.subregion;
+  googleMap.innerHTML = cD.maps.googleMaps;
 };
